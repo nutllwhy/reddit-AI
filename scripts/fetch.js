@@ -386,4 +386,60 @@ function generateIndexHTML(top5, date) {
 </html>`;
 }
 
+// 主函数
+async function main() {
+  const date = new Date().toISOString().split('T')[0];
+  console.log(`\n🚀 Reddit AI 情报精选 - ${date}\n`);
+  console.log('正在抓取各社区热门帖子...\n');
+  
+  // 抓取所有社区
+  const allPosts = [];
+  for (const sub of SUBREDDITS) {
+    const posts = await fetchRSS(sub.name);
+    allPosts.push(...posts);
+    console.log(`  r/${sub.name}: ${posts.length}条`);
+    await new Promise(r => setTimeout(r, 1000));
+  }
+  
+  console.log(`\n📊 总计: ${allPosts.length}条帖子`);
+  
+  if (allPosts.length === 0) {
+    console.log('⚠️ 未获取到数据');
+    return;
+  }
+  
+  // 智能筛选TOP5
+  console.log('\n🎯 正在智能筛选TOP5...');
+  const top5 = selectTop5(allPosts);
+  
+  console.log('\n✅ 精选结果：');
+  top5.forEach((p, i) => {
+    console.log(`  ${i+1}. [${p.subreddit}] ${p.title.substring(0, 50)}... (Score: ${p.score})`);
+  });
+  
+  // 生成Markdown报告
+  const mdContent = generateReport(top5, date);
+  const mdPath = join(process.cwd(), 'daily', `${date}.md`);
+  writeFileSync(mdPath, mdContent);
+  console.log(`\n📝 Markdown已生成: ${mdPath}`);
+  
+  // 生成HTML
+  const htmlContent = generateHTML(top5, date);
+  const htmlPath = join(process.cwd(), 'daily', `${date}.html`);
+  writeFileSync(htmlPath, htmlContent);
+  console.log(`🌐 HTML已生成: ${htmlPath}`);
+  
+  // 保存JSON数据
+  const jsonPath = join(process.cwd(), 'data', `top5-${date}.json`);
+  writeFileSync(jsonPath, JSON.stringify(top5, null, 2));
+  console.log(`💾 数据已保存: ${jsonPath}`);
+  
+  // 更新首页
+  const indexHtml = generateIndexHTML(top5, date);
+  writeFileSync(join(process.cwd(), 'index.html'), indexHtml);
+  console.log(`🏠 首页已更新`);
+  
+  console.log('\n✨ 完成！');
+}
+
 main().catch(console.error);
