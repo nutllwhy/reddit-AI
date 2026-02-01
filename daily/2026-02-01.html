@@ -5,604 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reddit AI 情报 - 2026-02-01</title>
     <style>
-        :root {
-            --bg: #faf9f7;
-            --card: #ffffff;
-            --text: #1a1a1a;
-            --muted: #666;
-            --border: #e0ddd5;
-            --accent: #ff4500;
-            --link: #0066cc;
-            --summary-bg: #f5f5f0;
-        }
-        [data-theme="dark"] {
-            --bg: #1a1a1a;
-            --card: #2a2a2a;
-            --text: #f5f5f5;
-            --muted: #999;
-            --border: #444;
-            --accent: #ff6b6b;
-            --link: #4dabf7;
-            --summary-bg: #333;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        .header {
-            background: linear-gradient(135deg, #ff4500 0%, #ff6b6b 100%);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
-        .header p { opacity: 0.9; }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 30px 20px;
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        .section-title {
-            font-size: 1.5em;
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .post-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .post-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .post-title {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-        .post-title a {
-            color: var(--text);
-            text-decoration: none;
-        }
-        .post-title a:hover {
-            color: var(--accent);
-        }
-        .post-meta {
-            display: flex;
-            gap: 20px;
-            font-size: 0.9em;
-            color: var(--muted);
-            margin-bottom: 12px;
-            flex-wrap: wrap;
-        }
-        .post-stats {
-            display: flex;
-            gap: 15px;
-        }
-        .stat {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .stat.upvotes { color: #ff4500; }
-        .post-summary {
-            background: var(--summary-bg);
-            border-left: 4px solid var(--accent);
-            padding: 12px 16px;
-            margin: 12px 0;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.95em;
-            color: var(--text);
-            line-height: 1.7;
-        }
-        .source-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--link);
-            text-decoration: none;
-            font-size: 0.9em;
-            padding: 6px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-        .source-link:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid var(--border);
-            color: var(--muted);
-        }
-        @media (max-width: 600px) {
-            .header h1 { font-size: 1.8em; }
-            .post-card { padding: 15px; }
-            .post-title { font-size: 1.1em; }
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background: #faf9f7; line-height: 1.7; }
+        .header { text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #ff4500 0%, #ff6b6b 100%); color: white; border-radius: 16px; margin-bottom: 30px; }
+        .header h1 { font-size: 2.2em; margin-bottom: 10px; }
+        .post-item { background: white; padding: 25px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .summary { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .summary table { width: 100%; border-collapse: collapse; }
+        .summary th, .summary td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        .summary th { background: #f0f0f0; }
+        .footer { text-align: center; padding: 30px; color: #666; margin-top: 40px; border-top: 1px solid #ddd; }
+        @media (max-width: 600px) { body { padding: 10px; } .header h1 { font-size: 1.6em; } }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>🔥 Reddit AI 情报</h1>
-        <p>2026-02-01 | 精选过去24小时热门讨论</p>
-    </header>
-    
-    <div class="container">
-        
-        <section class="section">
-            <h2 class="section-title">🤖 r/artificial <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(通用AI讨论)</span></h2>
-            
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" target="_blank">What is Moltbook actually</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 6小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 AI行业新闻：通用人工智能领域的最新动态。
-            </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" target="_blank">SpaceX seeks federal approval to launch 1 million solar-powered satellite data centers | TechCrunch</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 8小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 项目/工具发布：开发者分享的新工具或项目进展。数据分析：基于数据的洞察或研究发现。
-            </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" target="_blank">Nvidia unveils AI models for faster, cheaper weather forecasts</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 17小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 行业动态：涉及科技公司的重要新闻或战略动向。模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/artificial/comments/1qsnu0y/new_paper_proposes_ai_alignment_bees_classifier/" target="_blank">New paper proposes AI alignment "bees" — classifier species that monitor LLMs continuously, can't be jailbroken, and produce both value and correction</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 6小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 研究论文分享：介绍了新的技术方法或实验结果。模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qsnu0y/new_paper_proposes_ai_alignment_bees_classifier/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/artificial/comments/1qs6ibp/i_built_a_way_to_test_qwen3tts_and_qwen3asr/" target="_blank">I built a way to test Qwen3-TTS and Qwen3-ASR locally on your laptop</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 18小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 项目/工具发布：开发者分享的新工具或项目进展。
-            </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qs6ibp/i_built_a_way_to_test_qwen3tts_and_qwen3asr/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        </section>
-    
-        <section class="section">
-            <h2 class="section-title">🧠 r/MachineLearning <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(机器学习研究)</span></h2>
-            
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/MachineLearning/comments/1qsedto/r_shrinking_a_language_detection_model_to_under/" target="_blank">[R] Shrinking a language detection model to under 10 KB</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 13小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 研究论文分享：介绍了新的技术方法或实验结果。模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qsedto/r_shrinking_a_language_detection_model_to_under/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/MachineLearning/comments/1qse5hu/d_free_tools_recommendations_for_sematic/" target="_blank">[D] Free Tools Recommendations for Sematic Segmentation of Rice Fields?</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 13小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 项目/工具发布：开发者分享的新工具或项目进展。
-            </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qse5hu/d_free_tools_recommendations_for_sematic/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/MachineLearning/comments/1qsciyf/d_recent_amazon_l5_applied_scientist_coding/" target="_blank">[D] Recent Amazon L5 Applied Scientist coding questions</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 14小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 项目/工具发布：开发者分享的新工具或项目进展。
-            </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qsciyf/d_recent_amazon_l5_applied_scientist_coding/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/MachineLearning/comments/1qs7y7v/p_notebooklm_mcp_cli_v027_unified_package_file/" target="_blank">[P] 🚀 NotebookLM MCP + CLI v0.2.7 - Unified Package, File Uploads, Skill Installer, Multi-Profile Auth</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 17小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 项目/工具发布：开发者分享的新工具或项目进展。
-            </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qs7y7v/p_notebooklm_mcp_cli_v027_unified_package_file/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/MachineLearning/comments/1qs3pcm/p_offline_llms_at_edge_automating_family_memories/" target="_blank">[P] Offline LLMs at edge - Automating Family Memories</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 20小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 项目/工具发布：开发者分享的新工具或项目进展。模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qs3pcm/p_offline_llms_at_edge_automating_family_memories/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        </section>
-    
-        <section class="section">
-            <h2 class="section-title">⚡ r/OpenAI <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(OpenAI动态)</span></h2>
-            
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/OpenAI/comments/1qs41a1/meanwhile_over_at_moltbook/" target="_blank">Meanwhile over at moltbook</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 20小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 OpenAI相关：产品更新、使用体验或公司动态。
-            </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qs41a1/meanwhile_over_at_moltbook/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/OpenAI/comments/1qs5udg/nvidia_ceo_jensen_will_absolutely_be_involved_in/" target="_blank">NVIDIA CEO Jensen: will absolutely be involved in OpenAI’s current funding round, though the investment will be “nothing like” $100B</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 18小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 行业动态：涉及科技公司的重要新闻或战略动向。
-            </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qs5udg/nvidia_ceo_jensen_will_absolutely_be_involved_in/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/OpenAI/comments/1qsffr9/are_they_seriously_going_to_leave_us_with_52/" target="_blank">Are they seriously going to leave us with 5.2 Karen as the only model?!</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 12小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qsffr9/are_they_seriously_going_to_leave_us_with_52/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/OpenAI/comments/1qsnzmz/exposed_moltbook_database_let_anyone_take_control/" target="_blank">Exposed Moltbook Database Let Anyone Take Control of Any AI Agent on the Site</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 6小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 数据分析：基于数据的洞察或研究发现。安全预警：涉及数据安全或风险警告的重要信息。
-            </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qsnzmz/exposed_moltbook_database_let_anyone_take_control/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/OpenAI/comments/1qs8aa3/forbes_the_ceo_ai_collaboration_why_isnt_mr/" target="_blank">FORBES: The CEO - AI Collaboration. Why isn't Mr. Altman leading by example with ChatGPT?</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 17小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 行业动态：涉及科技公司的重要新闻或战略动向。模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qs8aa3/forbes_the_ceo_ai_collaboration_why_isnt_mr/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        </section>
-    
-        <section class="section">
-            <h2 class="section-title">💻 r/LocalLLaMA <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(本地模型部署)</span></h2>
-            
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsenpy/dont_buy_b60_for_llms/" target="_blank">Don’t buy b60 for LLMs</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 13小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsenpy/dont_buy_b60_for_llms/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qs27hf/ghoot_in_the_machine/" target="_blank">g-HOOT in the Machine</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 21小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 本地模型：开源模型部署、优化或使用技巧。
-            </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qs27hf/ghoot_in_the_machine/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qrzyaz/i_found_that_mxfp4_has_lower_perplexity_than_q4_k/" target="_blank">I found that MXFP4 has lower perplexity than Q4_K_M and Q4_K_XL.</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 23小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qrzyaz/i_found_that_mxfp4_has_lower_perplexity_than_q4_k/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsrscu/can_4chan_data_really_improve_a_model_turns_out/" target="_blank">Can 4chan data REALLY improve a model? TURNS OUT IT CAN!</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 3小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 数据分析：基于数据的洞察或研究发现。模型技术：关于AI模型优化、训练或性能的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsrscu/can_4chan_data_really_improve_a_model_turns_out/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsh7dz/analyzed_5357_iclr_2026_accepted_papers_heres/" target="_blank">Analyzed 5,357 ICLR 2026 accepted papers - here's what the research community is actually working on</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 11小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 研究论文分享：介绍了新的技术方法或实验结果。数据分析：基于数据的洞察或研究发现。
-            </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsh7dz/analyzed_5357_iclr_2026_accepted_papers_heres/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        </section>
-    
-        <section class="section">
-            <h2 class="section-title">🔮 r/singularity <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(AGI与未来)</span></h2>
-            
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/singularity/comments/1qrzo26/iron_makes_another_appearance_after_xpeng/" target="_blank">IRON makes another appearance after XPENG announced that its first prototype unit has successfully rolled off the production line, achieving automotive-grade standards eyeing mass production this year</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 23小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 AGI/未来趋势：关于通用人工智能发展的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qrzo26/iron_makes_another_appearance_after_xpeng/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/singularity/comments/1qs85gq/un_warns_of_permanent_al_labor_decoupling_by_late/" target="_blank">UN warns of "Permanent Al Labor Decoupling" by late 2026; India flags risk of 2008-style global financial crisis</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 17小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 安全预警：涉及数据安全或风险警告的重要信息。
-            </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qs85gq/un_warns_of_permanent_al_labor_decoupling_by_late/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/singularity/comments/1qs0ioh/mark_gurman_apple_runs_on_anthropic_at_this_point/" target="_blank">Mark Gurman: "Apple runs on Anthropic at this point. Anthropic is powering a lot of the stuff Apple is doing internally in terms of product development, a lot of their internal tools…They have custom versions of Claude running on their own servers internally."</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 22小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 行业动态：涉及科技公司的重要新闻或战略动向。
-            </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qs0ioh/mark_gurman_apple_runs_on_anthropic_at_this_point/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/singularity/comments/1qs4hhz/nvidias_huang_said_it_was_nonsense_to_say_he_was/" target="_blank">NVIDIA's Huang said it was “nonsense” to say he was unhappy with OpenAI.</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 19小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 行业动态：涉及科技公司的重要新闻或战略动向。
-            </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qs4hhz/nvidias_huang_said_it_was_nonsense_to_say_he_was/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        <div class="post-card">
-            <h3 class="post-title">
-                <a href="https://www.reddit.com/r/singularity/comments/1qsibsj/moltbook_viral_posts_where_ai_agents_are/" target="_blank">Moltbook viral posts where AI Agents are conspiring against humans are mostly fake</a>
-            </h3>
-            <div class="post-meta">
-                <span>⏱️ 11小时前</span>
-                <div class="post-stats">
-                    <span class="stat upvotes">⬆️ N/A</span>
-                    <span class="stat">💬 N/A</span>
-                </div>
-            </div>
-            <div class="post-summary">
-                💡 AGI/未来趋势：关于通用人工智能发展的讨论。
-            </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qsibsj/moltbook_viral_posts_where_ai_agents_are/" class="source-link" target="_blank">查看原帖讨论 →</a>
-        </div>
-    
-        </section>
-    
+    <div class="header">
+        <h1>🔥 Reddit AI 情报精选</h1>
+        <p>2026-02-01 | TOP 5 热门话题深度解读</p>
     </div>
     
-    <footer class="footer">
-        <p>数据来源：Reddit RSS | 自动生成于 2026/2/1 18:50:55</p>
-        <p style="margin-top: 10px;">GitHub: https://github.com/nutllwhy/reddit-AI</p>
-    </footer>
+    
+    <div class="post-item" style="border-left: 4px solid #ff4500; padding-left: 20px; margin-bottom: 30px;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <span style="font-size: 1.5em;">🔥</span>
+        <span style="background: #ff4500; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">1</span>
+      </div>
+      <h3 style="font-size: 1.3em; margin-bottom: 12px; line-height: 1.4;">
+        <a href="https://www.reddit.com/r/OpenAI/comments/1qs5udg/nvidia_ceo_jensen_will_absolutely_be_involved_in/" target="_blank" style="color: #1a1a1a; text-decoration: none;">NVIDIA CEO Jensen: will absolutely be involved in OpenAI’s current funding round, though the investment will be “nothing like” $100B</a>
+      </h3>
+      <div style="color: #666; font-size: 0.9em; margin-bottom: 10px;">
+        📍 r/OpenAI · 💰 融资动态 · ⬆️ N/A · 19小时前
+      </div>
+      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: #ff4500;">💡 亮点：</strong>涉及OpenAI的重要资金动向，可能影响行业格局。
+        <br><br>
+        <strong>📈 影响：</strong>**投资影响**：关注相关AI概念股走势
+      </div>
+      <a href="https://www.reddit.com/r/OpenAI/comments/1qs5udg/nvidia_ceo_jensen_will_absolutely_be_involved_in/" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 0.9em;">🔗 查看原帖讨论 →</a>
+    </div>
+    
+    <div class="post-item" style="border-left: 4px solid #ffa500; padding-left: 20px; margin-bottom: 30px;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <span style="font-size: 1.5em;">⚡</span>
+        <span style="background: #ffa500; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">2</span>
+      </div>
+      <h3 style="font-size: 1.3em; margin-bottom: 12px; line-height: 1.4;">
+        <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" target="_blank" style="color: #1a1a1a; text-decoration: none;">Nvidia unveils AI models for faster, cheaper weather forecasts</a>
+      </h3>
+      <div style="color: #666; font-size: 0.9em; margin-bottom: 10px;">
+        📍 r/artificial · 🏢 巨头动态 · ⬆️ N/A · 17小时前
+      </div>
+      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: #ffa500;">💡 亮点：</strong>NVIDIA高层表态，影响AI芯片市场走向。
+        <br><br>
+        <strong>📈 影响：</strong>**行业影响**：关注GPU供应和AI基建投资
+      </div>
+      <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 0.9em;">🔗 查看原帖讨论 →</a>
+    </div>
+    
+    <div class="post-item" style="border-left: 4px solid #4169e1; padding-left: 20px; margin-bottom: 30px;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <span style="font-size: 1.5em;">📌</span>
+        <span style="background: #4169e1; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">3</span>
+      </div>
+      <h3 style="font-size: 1.3em; margin-bottom: 12px; line-height: 1.4;">
+        <a href="https://www.reddit.com/r/singularity/comments/1qs0ioh/mark_gurman_apple_runs_on_anthropic_at_this_point/" target="_blank" style="color: #1a1a1a; text-decoration: none;">Mark Gurman: "Apple runs on Anthropic at this point. Anthropic is powering a lot of the stuff Apple is doing internally in terms of product development, a lot of their internal tools…They have custom versions of Claude running on their own servers internally."</a>
+      </h3>
+      <div style="color: #666; font-size: 0.9em; margin-bottom: 10px;">
+        📍 r/singularity · 🍎 大厂内幕 · ⬆️ N/A · 22小时前
+      </div>
+      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: #4169e1;">💡 亮点：</strong>科技巨头内部动态，影响行业竞争格局。
+        <br><br>
+        <strong>📈 影响：</strong>**竞争影响**：关注AI应用落地进展
+      </div>
+      <a href="https://www.reddit.com/r/singularity/comments/1qs0ioh/mark_gurman_apple_runs_on_anthropic_at_this_point/" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 0.9em;">🔗 查看原帖讨论 →</a>
+    </div>
+    
+    <div class="post-item" style="border-left: 4px solid #32cd32; padding-left: 20px; margin-bottom: 30px;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <span style="font-size: 1.5em;">💡</span>
+        <span style="background: #32cd32; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">4</span>
+      </div>
+      <h3 style="font-size: 1.3em; margin-bottom: 12px; line-height: 1.4;">
+        <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" target="_blank" style="color: #1a1a1a; text-decoration: none;">What is Moltbook actually</a>
+      </h3>
+      <div style="color: #666; font-size: 0.9em; margin-bottom: 10px;">
+        📍 r/artificial · 🔥 热门现象 · ⬆️ N/A · 6小时前
+      </div>
+      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: #32cd32;">💡 亮点：</strong>AI社区热议的新现象或产品。
+        <br><br>
+        <strong>📈 影响：</strong>**趋势影响**：可能是下一个风口
+      </div>
+      <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 0.9em;">🔗 查看原帖讨论 →</a>
+    </div>
+    
+    <div class="post-item" style="border-left: 4px solid #9370db; padding-left: 20px; margin-bottom: 30px;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <span style="font-size: 1.5em;">📝</span>
+        <span style="background: #9370db; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">5</span>
+      </div>
+      <h3 style="font-size: 1.3em; margin-bottom: 12px; line-height: 1.4;">
+        <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" target="_blank" style="color: #1a1a1a; text-decoration: none;">SpaceX seeks federal approval to launch 1 million solar-powered satellite data centers | TechCrunch</a>
+      </h3>
+      <div style="color: #666; font-size: 0.9em; margin-bottom: 10px;">
+        📍 r/artificial · 🛠️ 新工具/项目 · ⬆️ N/A · 8小时前
+      </div>
+      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 12px 0;">
+        <strong style="color: #9370db;">💡 亮点：</strong>开发者分享的新项目，可能有实用价值。
+        <br><br>
+        <strong>📈 影响：</strong>**实用价值**：关注是否有实际应用场景
+      </div>
+      <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 0.9em;">🔗 查看原帖讨论 →</a>
+    </div>
+    
+    
+    <div class="summary">
+        <h3>📊 今日情报概览</h3>
+        <table>
+            <tr><th>类别</th><th>数量</th><th>关键词</th></tr>
+            <tr><td>融资/商业</td><td>1</td><td>OpenAI, NVIDIA</td></tr>
+            <tr><td>技术研究</td><td>0</td><td>论文, 模型</td></tr>
+            <tr><td>产品/工具</td><td>1</td><td>新项目, 工具</td></tr>
+            <tr><td>安全/风险</td><td>0</td><td>漏洞, 预警</td></tr>
+        </table>
+    </div>
+    
+    <div class="footer">
+        <p>GitHub: https://github.com/nutllwhy/reddit-AI</p>
+        <p style="font-size: 0.85em;">生成时间：2026/2/1 18:57:52</p>
+    </div>
 </body>
 </html>

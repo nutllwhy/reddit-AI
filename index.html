@@ -2,172 +2,35 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reddit AI 情报</title>
+    <title>Reddit AI 情报精选</title>
     <style>
-        :root {
-            --bg: #faf9f7;
-            --card: #ffffff;
-            --text: #1a1a1a;
-            --muted: #666;
-            --border: #e0ddd5;
-            --accent: #ff4500;
-            --link: #0066cc;
-        }
-        [data-theme="dark"] {
-            --bg: #1a1a1a;
-            --card: #2a2a2a;
-            --text: #f5f5f5;
-            --muted: #999;
-            --border: #444;
-            --accent: #ff6b6b;
-            --link: #4dabf7;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        .header {
-            background: linear-gradient(135deg, #ff4500 0%, #ff6b6b 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-        .header h1 { font-size: 3em; margin-bottom: 15px; }
-        .header p { opacity: 0.9; font-size: 1.2em; }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        .latest-box {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border);
-        }
-        .latest-title {
-            font-size: 1.3em;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--accent);
-        }
-        .post-item {
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .post-item:last-child { border-bottom: none; }
-        .post-link {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1em;
-        }
-        .post-link:hover { color: var(--accent); }
-        .post-summary {
-            font-size: 0.9em;
-            color: var(--muted);
-            margin-top: 8px;
-            line-height: 1.6;
-        }
-        .post-source {
-            font-size: 0.85em;
-            color: var(--muted);
-            margin-top: 5px;
-        }
-        .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
-        }
+        body { font-family: -apple-system, sans-serif; max-width: 700px; margin: 50px auto; padding: 20px; background: #faf9f7; }
+        .card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        h1 { color: #ff4500; margin-bottom: 10px; }
+        .date { color: #666; margin-bottom: 20px; }
+        .preview { background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 20px 0; font-size: 0.9em; line-height: 1.8; }
+        .btn { display: inline-block; background: #ff4500; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; }
         .btn:hover { opacity: 0.9; }
-        .archive {
-            margin-top: 40px;
-        }
-        .archive h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--accent);
-        }
-        .archive-list {
-            list-style: none;
-        }
-        .archive-item {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .archive-date {
-            font-weight: 600;
-            color: var(--accent);
-        }
-        .archive-link {
-            color: var(--link);
-            text-decoration: none;
-        }
-        .footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--muted);
-        }
+        .archive { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>🔥 Reddit AI 情报</h1>
-        <p>每日精选 Reddit AI 社区热门讨论</p>
-    </header>
-    
-    <div class="container">
-        <div class="latest-box">
-            <div class="latest-title">📰 最新情报 - 2026-02-01</div>
-            
-            <div class="post-item">
-                <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" class="post-link" target="_blank">What is Moltbook actually</a>
-                <div class="post-summary">AI行业新闻：通用人工智能领域的最新动态。</div>
-                <div class="post-source">r/artificial · ⬆️ N/A</div>
-            </div>
-            
-            <div class="post-item">
-                <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" class="post-link" target="_blank">SpaceX seeks federal approval to launch 1 million solar-powered satellite data centers | TechCrunch</a>
-                <div class="post-summary">项目/工具发布：开发者分享的新工具或项目进展。数据分析：基于数据的洞察或研究发现。</div>
-                <div class="post-source">r/artificial · ⬆️ N/A</div>
-            </div>
-            
-            <div class="post-item">
-                <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" class="post-link" target="_blank">Nvidia unveils AI models for faster, cheaper weather forecasts</a>
-                <div class="post-summary">行业动态：涉及科技公司的重要新闻或战略动向。模型技术：关于AI模型优化、训练或性能的讨论。</div>
-                <div class="post-source">r/artificial · ⬆️ N/A</div>
-            </div>
-            
-            <a href="daily/2026-02-01.html" class="btn">查看完整日报 →</a>
+    <div class="card">
+        <h1>🔥 Reddit AI 情报精选</h1>
+        <div class="date">每日 TOP 5 热门话题深度解读</div>
+        
+        <div class="preview">
+            <strong>最新一期：2026-02-01</strong><br><br>
+            NVIDIA CEO Jensen: will absolutely be involved in OpenAI’s c...<br>Nvidia unveils AI models for faster, cheaper weather forecas...<br>Mark Gurman: "Apple runs on Anthropic at this point. Anthrop...
         </div>
         
+        <a href="daily/2026-02-01.html" class="btn">阅读完整报告 →</a>
+        
         <div class="archive">
-            <h2>📚 历史归档</h2>
-            <ul class="archive-list">
-                <li class="archive-item">
-                    <span class="archive-date">2026-02-01</span>
-                    <a href="daily/2026-02-01.html" class="archive-link">查看完整报告 →</a>
-                </li>
-            </ul>
+            <strong>📚 历史报告</strong><br>
+            <a href="daily/2026-02-01.md">2026-02-01 (Markdown)</a> · 
+            <a href="daily/2026-02-01.html">2026-02-01 (HTML)</a>
         </div>
     </div>
-    
-    <footer class="footer">
-        <p>GitHub: https://github.com/nutllwhy/reddit-AI</p>
-    </footer>
 </body>
 </html>
