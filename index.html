@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit AI 情报</title>
+    <style>
+        :root {
+            --bg: #faf9f7;
+            --card: #ffffff;
+            --text: #1a1a1a;
+            --muted: #666;
+            --border: #e0ddd5;
+            --accent: #ff4500;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --card: #2a2a2a;
+            --text: #f5f5f5;
+            --muted: #999;
+            --border: #444;
+            --accent: #ff6b6b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff4500 0%, #ff6b6b 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .header h1 { font-size: 3em; margin-bottom: 15px; }
+        .header p { opacity: 0.9; font-size: 1.2em; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .latest-box {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+        .latest-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        .post-item {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .post-item:last-child { border-bottom: none; }
+        .post-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .post-link:hover { color: var(--accent); }
+        .post-source {
+            font-size: 0.85em;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+        .btn:hover { opacity: 0.9; }
+        .archive {
+            margin-top: 40px;
+        }
+        .archive h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+        .archive-list {
+            list-style: none;
+        }
+        .archive-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .archive-date {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .archive-link {
+            color: var(--link);
+            text-decoration: none;
+        }
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🔥 Reddit AI 情报</h1>
+        <p>每日精选 Reddit AI 社区热门讨论</p>
+    </header>
+    
+    <div class="container">
+        <div class="latest-box">
+            <div class="latest-title">📰 最新情报 - 2026-02-01</div>
+            
+            <div class="post-item">
+                <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" class="post-link" target="_blank">What is Moltbook actually</a>
+                <div class="post-source">r/artificial · ⬆️ N/A</div>
+            </div>
+            
+            <div class="post-item">
+                <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" class="post-link" target="_blank">SpaceX seeks federal approval to launch 1 million solar-powered satellite data centers | TechCrunch</a>
+                <div class="post-source">r/artificial · ⬆️ N/A</div>
+            </div>
+            
+            <div class="post-item">
+                <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" class="post-link" target="_blank">Nvidia unveils AI models for faster, cheaper weather forecasts</a>
+                <div class="post-source">r/artificial · ⬆️ N/A</div>
+            </div>
+            
+            <a href="daily/2026-02-01.html" class="btn">查看完整日报 →</a>
+        </div>
+        
+        <div class="archive">
+            <h2>📚 历史归档</h2>
+            <ul class="archive-list">
+                <li class="archive-item">
+                    <span class="archive-date">2026-02-01</span>
+                    <a href="daily/2026-02-01.html" class="archive-link">查看 →</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>GitHub: https://github.com/nutllwhy/reddit-AI</p>
+    </footer>
+</body>
+</html>
