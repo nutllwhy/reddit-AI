@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "created_at": "2026-02-01",
+  "monitored_subreddits": {
+    "daily": [
+      {
+        "name": "artificial",
+        "min_upvotes": 500,
+        "min_comments": 50,
+        "priority": "high"
+      },
+      {
+        "name": "MachineLearning",
+        "min_upvotes": 500,
+        "min_comments": 50,
+        "priority": "high"
+      },
+      {
+        "name": "OpenAI",
+        "min_upvotes": 300,
+        "min_comments": 30,
+        "priority": "high"
+      },
+      {
+        "name": "LocalLLaMA",
+        "min_upvotes": 200,
+        "min_comments": 20,
+        "priority": "medium"
+      },
+      {
+        "name": "singularity",
+        "min_upvotes": 200,
+        "min_comments": 20,
+        "priority": "medium"
+      }
+    ],
+    "weekly": [
+      "ChatGPT",
+      "StableDiffusion",
+      "ClaudeAI",
+      "GoogleBard",
+      "AIAssisted"
+    ]
+  },
+  "schedule": {
+    "morning": "09:00",
+    "noon": "13:00",
+    "afternoon": "15:00",
+    "daily_digest": "21:00"
+  },
+  "filters": {
+    "exclude_keywords": ["meme", "shitpost", "off-topic"],
+    "min_post_age_hours": 1,
+    "max_post_age_hours": 24
+  },
+  "output": {
+    "format": "markdown",
+    "push_to_feishu": true,
+    "save_locally": true
+  }
+}
