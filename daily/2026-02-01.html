@@ -13,6 +13,7 @@
             --border: #e0ddd5;
             --accent: #ff4500;
             --link: #0066cc;
+            --summary-bg: #f5f5f0;
         }
         [data-theme="dark"] {
             --bg: #1a1a1a;
@@ -22,6 +23,7 @@
             --border: #444;
             --accent: #ff6b6b;
             --link: #4dabf7;
+            --summary-bg: #333;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -99,15 +101,31 @@
             gap: 5px;
         }
         .stat.upvotes { color: #ff4500; }
+        .post-summary {
+            background: var(--summary-bg);
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95em;
+            color: var(--text);
+            line-height: 1.7;
+        }
         .source-link {
             display: inline-block;
             margin-top: 10px;
             color: var(--link);
             text-decoration: none;
             font-size: 0.9em;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s;
         }
         .source-link:hover {
-            text-decoration: underline;
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
         }
         .footer {
             text-align: center;
@@ -118,6 +136,7 @@
         @media (max-width: 600px) {
             .header h1 { font-size: 1.8em; }
             .post-card { padding: 15px; }
+            .post-title { font-size: 1.1em; }
         }
     </style>
 </head>
@@ -130,7 +149,7 @@
     <div class="container">
         
         <section class="section">
-            <h2 class="section-title">🤖 r/artificial</h2>
+            <h2 class="section-title">🤖 r/artificial <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(通用AI讨论)</span></h2>
             
         <div class="post-card">
             <h3 class="post-title">
@@ -143,7 +162,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 AI行业新闻：通用人工智能领域的最新动态。
+            </div>
+            <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -157,7 +179,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 项目/工具发布：开发者分享的新工具或项目进展。数据分析：基于数据的洞察或研究发现。
+            </div>
+            <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -171,7 +196,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 行业动态：涉及科技公司的重要新闻或战略动向。模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -185,7 +213,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qsnu0y/new_paper_proposes_ai_alignment_bees_classifier/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 研究论文分享：介绍了新的技术方法或实验结果。模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/artificial/comments/1qsnu0y/new_paper_proposes_ai_alignment_bees_classifier/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -199,13 +230,16 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/artificial/comments/1qs6ibp/i_built_a_way_to_test_qwen3tts_and_qwen3asr/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 项目/工具发布：开发者分享的新工具或项目进展。
+            </div>
+            <a href="https://www.reddit.com/r/artificial/comments/1qs6ibp/i_built_a_way_to_test_qwen3tts_and_qwen3asr/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         </section>
     
         <section class="section">
-            <h2 class="section-title">🧠 r/MachineLearning</h2>
+            <h2 class="section-title">🧠 r/MachineLearning <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(机器学习研究)</span></h2>
             
         <div class="post-card">
             <h3 class="post-title">
@@ -218,7 +252,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qsedto/r_shrinking_a_language_detection_model_to_under/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 研究论文分享：介绍了新的技术方法或实验结果。模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/MachineLearning/comments/1qsedto/r_shrinking_a_language_detection_model_to_under/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -232,7 +269,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qse5hu/d_free_tools_recommendations_for_sematic/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 项目/工具发布：开发者分享的新工具或项目进展。
+            </div>
+            <a href="https://www.reddit.com/r/MachineLearning/comments/1qse5hu/d_free_tools_recommendations_for_sematic/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -246,7 +286,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qsciyf/d_recent_amazon_l5_applied_scientist_coding/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 项目/工具发布：开发者分享的新工具或项目进展。
+            </div>
+            <a href="https://www.reddit.com/r/MachineLearning/comments/1qsciyf/d_recent_amazon_l5_applied_scientist_coding/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -260,7 +303,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qs7y7v/p_notebooklm_mcp_cli_v027_unified_package_file/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 项目/工具发布：开发者分享的新工具或项目进展。
+            </div>
+            <a href="https://www.reddit.com/r/MachineLearning/comments/1qs7y7v/p_notebooklm_mcp_cli_v027_unified_package_file/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -274,13 +320,16 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/MachineLearning/comments/1qs3pcm/p_offline_llms_at_edge_automating_family_memories/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 项目/工具发布：开发者分享的新工具或项目进展。模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/MachineLearning/comments/1qs3pcm/p_offline_llms_at_edge_automating_family_memories/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         </section>
     
         <section class="section">
-            <h2 class="section-title">⚡ r/OpenAI</h2>
+            <h2 class="section-title">⚡ r/OpenAI <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(OpenAI动态)</span></h2>
             
         <div class="post-card">
             <h3 class="post-title">
@@ -293,7 +342,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qs41a1/meanwhile_over_at_moltbook/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 OpenAI相关：产品更新、使用体验或公司动态。
+            </div>
+            <a href="https://www.reddit.com/r/OpenAI/comments/1qs41a1/meanwhile_over_at_moltbook/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -307,7 +359,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qs5udg/nvidia_ceo_jensen_will_absolutely_be_involved_in/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 行业动态：涉及科技公司的重要新闻或战略动向。
+            </div>
+            <a href="https://www.reddit.com/r/OpenAI/comments/1qs5udg/nvidia_ceo_jensen_will_absolutely_be_involved_in/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -321,7 +376,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qsffr9/are_they_seriously_going_to_leave_us_with_52/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/OpenAI/comments/1qsffr9/are_they_seriously_going_to_leave_us_with_52/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -335,7 +393,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qsnzmz/exposed_moltbook_database_let_anyone_take_control/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 数据分析：基于数据的洞察或研究发现。安全预警：涉及数据安全或风险警告的重要信息。
+            </div>
+            <a href="https://www.reddit.com/r/OpenAI/comments/1qsnzmz/exposed_moltbook_database_let_anyone_take_control/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -349,13 +410,16 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/OpenAI/comments/1qs8aa3/forbes_the_ceo_ai_collaboration_why_isnt_mr/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 行业动态：涉及科技公司的重要新闻或战略动向。模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/OpenAI/comments/1qs8aa3/forbes_the_ceo_ai_collaboration_why_isnt_mr/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         </section>
     
         <section class="section">
-            <h2 class="section-title">💻 r/LocalLLaMA</h2>
+            <h2 class="section-title">💻 r/LocalLLaMA <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(本地模型部署)</span></h2>
             
         <div class="post-card">
             <h3 class="post-title">
@@ -368,7 +432,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsenpy/dont_buy_b60_for_llms/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsenpy/dont_buy_b60_for_llms/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -382,7 +449,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qs27hf/ghoot_in_the_machine/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 本地模型：开源模型部署、优化或使用技巧。
+            </div>
+            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qs27hf/ghoot_in_the_machine/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -396,7 +466,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qrzyaz/i_found_that_mxfp4_has_lower_perplexity_than_q4_k/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qrzyaz/i_found_that_mxfp4_has_lower_perplexity_than_q4_k/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -410,7 +483,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsrscu/can_4chan_data_really_improve_a_model_turns_out/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 数据分析：基于数据的洞察或研究发现。模型技术：关于AI模型优化、训练或性能的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsrscu/can_4chan_data_really_improve_a_model_turns_out/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -424,13 +500,16 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsh7dz/analyzed_5357_iclr_2026_accepted_papers_heres/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 研究论文分享：介绍了新的技术方法或实验结果。数据分析：基于数据的洞察或研究发现。
+            </div>
+            <a href="https://www.reddit.com/r/LocalLLaMA/comments/1qsh7dz/analyzed_5357_iclr_2026_accepted_papers_heres/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         </section>
     
         <section class="section">
-            <h2 class="section-title">🔮 r/singularity</h2>
+            <h2 class="section-title">🔮 r/singularity <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(AGI与未来)</span></h2>
             
         <div class="post-card">
             <h3 class="post-title">
@@ -443,7 +522,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qrzo26/iron_makes_another_appearance_after_xpeng/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 AGI/未来趋势：关于通用人工智能发展的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/singularity/comments/1qrzo26/iron_makes_another_appearance_after_xpeng/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -457,7 +539,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qs85gq/un_warns_of_permanent_al_labor_decoupling_by_late/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 安全预警：涉及数据安全或风险警告的重要信息。
+            </div>
+            <a href="https://www.reddit.com/r/singularity/comments/1qs85gq/un_warns_of_permanent_al_labor_decoupling_by_late/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -471,7 +556,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qs0ioh/mark_gurman_apple_runs_on_anthropic_at_this_point/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 行业动态：涉及科技公司的重要新闻或战略动向。
+            </div>
+            <a href="https://www.reddit.com/r/singularity/comments/1qs0ioh/mark_gurman_apple_runs_on_anthropic_at_this_point/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -485,7 +573,10 @@
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qs4hhz/nvidias_huang_said_it_was_nonsense_to_say_he_was/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 行业动态：涉及科技公司的重要新闻或战略动向。
+            </div>
+            <a href="https://www.reddit.com/r/singularity/comments/1qs4hhz/nvidias_huang_said_it_was_nonsense_to_say_he_was/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         <div class="post-card">
@@ -493,13 +584,16 @@
                 <a href="https://www.reddit.com/r/singularity/comments/1qsibsj/moltbook_viral_posts_where_ai_agents_are/" target="_blank">Moltbook viral posts where AI Agents are conspiring against humans are mostly fake</a>
             </h3>
             <div class="post-meta">
-                <span>⏱️ 10小时前</span>
+                <span>⏱️ 11小时前</span>
                 <div class="post-stats">
                     <span class="stat upvotes">⬆️ N/A</span>
                     <span class="stat">💬 N/A</span>
                 </div>
             </div>
-            <a href="https://www.reddit.com/r/singularity/comments/1qsibsj/moltbook_viral_posts_where_ai_agents_are/" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 AGI/未来趋势：关于通用人工智能发展的讨论。
+            </div>
+            <a href="https://www.reddit.com/r/singularity/comments/1qsibsj/moltbook_viral_posts_where_ai_agents_are/" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     
         </section>
@@ -507,7 +601,7 @@
     </div>
     
     <footer class="footer">
-        <p>数据来源：Reddit API | 自动生成于 2026/2/1 18:45:35</p>
+        <p>数据来源：Reddit RSS | 自动生成于 2026/2/1 18:50:55</p>
         <p style="margin-top: 10px;">GitHub: https://github.com/nutllwhy/reddit-AI</p>
     </footer>
 </body>

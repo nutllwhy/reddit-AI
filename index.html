@@ -12,6 +12,7 @@
             --muted: #666;
             --border: #e0ddd5;
             --accent: #ff4500;
+            --link: #0066cc;
         }
         [data-theme="dark"] {
             --bg: #1a1a1a;
@@ -20,6 +21,7 @@
             --muted: #999;
             --border: #444;
             --accent: #ff6b6b;
+            --link: #4dabf7;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -63,8 +65,15 @@
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
+            font-size: 1.1em;
         }
         .post-link:hover { color: var(--accent); }
+        .post-summary {
+            font-size: 0.9em;
+            color: var(--muted);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
         .post-source {
             font-size: 0.85em;
             color: var(--muted);
@@ -127,16 +136,19 @@
             
             <div class="post-item">
                 <a href="https://www.reddit.com/r/artificial/comments/1qsoftx/what_is_moltbook_actually/" class="post-link" target="_blank">What is Moltbook actually</a>
+                <div class="post-summary">AI行业新闻：通用人工智能领域的最新动态。</div>
                 <div class="post-source">r/artificial · ⬆️ N/A</div>
             </div>
             
             <div class="post-item">
                 <a href="https://www.reddit.com/r/artificial/comments/1qslxkj/spacex_seeks_federal_approval_to_launch_1_million/" class="post-link" target="_blank">SpaceX seeks federal approval to launch 1 million solar-powered satellite data centers | TechCrunch</a>
+                <div class="post-summary">项目/工具发布：开发者分享的新工具或项目进展。数据分析：基于数据的洞察或研究发现。</div>
                 <div class="post-source">r/artificial · ⬆️ N/A</div>
             </div>
             
             <div class="post-item">
                 <a href="https://www.reddit.com/r/artificial/comments/1qs7otq/nvidia_unveils_ai_models_for_faster_cheaper/" class="post-link" target="_blank">Nvidia unveils AI models for faster, cheaper weather forecasts</a>
+                <div class="post-summary">行业动态：涉及科技公司的重要新闻或战略动向。模型技术：关于AI模型优化、训练或性能的讨论。</div>
                 <div class="post-source">r/artificial · ⬆️ N/A</div>
             </div>
             
@@ -148,7 +160,7 @@
             <ul class="archive-list">
                 <li class="archive-item">
                     <span class="archive-date">2026-02-01</span>
-                    <a href="daily/2026-02-01.html" class="archive-link">查看 →</a>
+                    <a href="daily/2026-02-01.html" class="archive-link">查看完整报告 →</a>
                 </li>
             </ul>
         </div>

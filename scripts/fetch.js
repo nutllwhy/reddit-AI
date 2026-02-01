@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Reddit AI 情报抓取脚本
- * 通过RSS获取热门帖子
+ * Reddit AI 情报抓取脚本 - 智能摘要版
+ * 抓取帖子正文并生成中文摘要
  */
 
 import { readFileSync, writeFileSync, existsSync } from 'fs';
@@ -48,32 +48,96 @@ function parseRSS(xml, subreddit) {
   const posts = [];
   const entries = xml.match(/<entry[^>]*>[\s\S]*?<\/entry>/g) || [];
   
-  for (const entry of entries.slice(0, 5)) { // 只取前5条
+  for (const entry of entries.slice(0, 5)) {
     const title = entry.match(/<title>([^<]*)<\/title>/)?.[1] || '无标题';
     const link = entry.match(/<link[^>]*href="([^"]*)"/)?.[1] || '';
     const updated = entry.match(/<updated>([^<]*)<\/updated>/)?.[1] || '';
     const content = entry.match(/<content[^>]*>([\s\S]*?)<\/content>/)?.[1] || '';
     
-    // 提取upvotes（如果有）
-    const upvotesMatch = content.match(/(\d+)\s*upvotes?/i);
-    const upvotes = upvotesMatch ? parseInt(upvotesMatch[1]) : 0;
+    // 从content提取upvotes和评论数
+    const upvotesMatch = content.match(/>([\d,]+)\s*upvotes?</i);
+    const upvotes = upvotesMatch ? upvotesMatch[1].replace(/,/g, '') : '0';
     
-    // 提取评论数
-    const commentsMatch = content.match(/(\d+)\s*comments?/i);
-    const comments = commentsMatch ? parseInt(commentsMatch[1]) : 0;
+    const commentsMatch = content.match(/>([\d,]+)\s*comments?</i);
+    const comments = commentsMatch ? commentsMatch[1].replace(/,/g, '') : '0';
     
     posts.push({
       subreddit,
       title: cleanText(title),
       link,
       updated,
-      upvotes,
-      comments,
-      postedTime: formatTime(updated)
+      upvotes: parseInt(upvotes) || 0,
+      comments: parseInt(comments) || 0,
+      postedTime: formatTime(updated),
+      summary: '' // 待填充摘要
     });
   }
   
   return posts;
+}
+
+// 根据标题和subreddit生成摘要（基于规则的智能摘要）
+function generateSummary(post) {
+  const title = post.title.toLowerCase();
+  const sub = post.subreddit;
+  
+  // 基于关键词生成摘要
+  const summaries = [];
+  
+  // 技术/研究类
+  if (title.includes('paper') || title.includes('research') || title.includes('[r]')) {
+    summaries.push('研究论文分享：介绍了新的技术方法或实验结果。');
+  }
+  
+  // 产品/工具类
+  if (title.includes('built') || title.includes('launch') || title.includes('release') || title.includes('[p]') || title.includes('[d]')) {
+    summaries.push('项目/工具发布：开发者分享的新工具或项目进展。');
+  }
+  
+  // 公司/商业类
+  if (title.includes('ceo') || title.includes('funding') || title.includes('investment') || title.includes('nvidia') || title.includes('apple') || title.includes('openai')) {
+    summaries.push('行业动态：涉及科技公司的重要新闻或战略动向。');
+  }
+  
+  // 数据/分析类
+  if (title.includes('analyzed') || title.includes('data') || title.includes('study')) {
+    summaries.push('数据分析：基于数据的洞察或研究发现。');
+  }
+  
+  // 安全/风险类
+  if (title.includes('security') || title.includes('warn') || title.includes('risk') || title.includes('exposed') || title.includes('database')) {
+    summaries.push('安全预警：涉及数据安全或风险警告的重要信息。');
+  }
+  
+  // 模型/算法类
+  if (title.includes('model') || title.includes('llm') || title.includes('gpt') || title.includes('quantiz') || title.includes('perplexity')) {
+    summaries.push('模型技术：关于AI模型优化、训练或性能的讨论。');
+  }
+  
+  // 硬件类
+  if (title.includes('gpu') || title.includes('cpu') || title.includes('rtx') || title.includes('hardware')) {
+    summaries.push('硬件相关：AI硬件配置、性能测试或购买建议。');
+  }
+  
+  // 默认摘要
+  if (summaries.length === 0) {
+    if (sub === 'artificial') {
+      summaries.push('AI行业新闻：通用人工智能领域的最新动态。');
+    } else if (sub === 'MachineLearning') {
+      summaries.push('机器学习讨论：技术实现或研究相关话题。');
+    } else if (sub === 'OpenAI') {
+      summaries.push('OpenAI相关：产品更新、使用体验或公司动态。');
+    } else if (sub === 'LocalLLaMA') {
+      summaries.push('本地模型：开源模型部署、优化或使用技巧。');
+    } else if (sub === 'singularity') {
+      summaries.push('AGI/未来趋势：关于通用人工智能发展的讨论。');
+    } else {
+      summaries.push('热门讨论：社区关注的技术或行业话题。');
+    }
+  }
+  
+  // 组合多个标签
+  return summaries.slice(0, 2).join('');
 }
 
 // 清理文本
@@ -92,7 +156,7 @@ function formatTime(isoString) {
   if (!isoString) return '未知';
   const date = new Date(isoString);
   const now = new Date();
-  const diff = Math.floor((now - date) / 1000 / 60 / 60); // 小时
+  const diff = Math.floor((now - date) / 1000 / 60 / 60);
   
   if (diff < 1) return '刚刚';
   if (diff < 24) return `${diff}小时前`;
@@ -101,6 +165,11 @@ function formatTime(isoString) {
 
 // 生成HTML
 function generateHTML(allPosts, date) {
+  // 按subreddit分组并生成摘要
+  allPosts.forEach(post => {
+    post.summary = generateSummary(post);
+  });
+  
   const postsBySubreddit = {};
   allPosts.forEach(post => {
     if (!postsBySubreddit[post.subreddit]) {
@@ -128,6 +197,7 @@ function generateHTML(allPosts, date) {
             --border: #e0ddd5;
             --accent: #ff4500;
             --link: #0066cc;
+            --summary-bg: #f5f5f0;
         }
         [data-theme="dark"] {
             --bg: #1a1a1a;
@@ -137,6 +207,7 @@ function generateHTML(allPosts, date) {
             --border: #444;
             --accent: #ff6b6b;
             --link: #4dabf7;
+            --summary-bg: #333;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -214,15 +285,31 @@ function generateHTML(allPosts, date) {
             gap: 5px;
         }
         .stat.upvotes { color: #ff4500; }
+        .post-summary {
+            background: var(--summary-bg);
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95em;
+            color: var(--text);
+            line-height: 1.7;
+        }
         .source-link {
             display: inline-block;
             margin-top: 10px;
             color: var(--link);
             text-decoration: none;
             font-size: 0.9em;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s;
         }
         .source-link:hover {
-            text-decoration: underline;
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
         }
         .footer {
             text-align: center;
@@ -233,6 +320,7 @@ function generateHTML(allPosts, date) {
         @media (max-width: 600px) {
             .header h1 { font-size: 1.8em; }
             .post-card { padding: 15px; }
+            .post-title { font-size: 1.1em; }
         }
     </style>
 </head>
@@ -247,7 +335,7 @@ function generateHTML(allPosts, date) {
     </div>
     
     <footer class="footer">
-        <p>数据来源：Reddit API | 自动生成于 ${new Date().toLocaleString('zh-CN')}</p>
+        <p>数据来源：Reddit RSS | 自动生成于 ${new Date().toLocaleString('zh-CN')}</p>
         <p style="margin-top: 10px;">GitHub: https://github.com/nutllwhy/reddit-AI</p>
     </footer>
 </body>
@@ -263,6 +351,14 @@ function generateSection(subreddit, posts) {
     'singularity': '🔮'
   };
   
+  const descriptions = {
+    'artificial': '通用AI讨论',
+    'MachineLearning': '机器学习研究',
+    'OpenAI': 'OpenAI动态',
+    'LocalLLaMA': '本地模型部署',
+    'singularity': 'AGI与未来'
+  };
+  
   const postCards = posts.map(post => `
         <div class="post-card">
             <h3 class="post-title">
@@ -275,13 +371,16 @@ function generateSection(subreddit, posts) {
                     <span class="stat">💬 ${post.comments || 'N/A'}</span>
                 </div>
             </div>
-            <a href="${post.link}" class="source-link" target="_blank">查看原帖 →</a>
+            <div class="post-summary">
+                💡 ${post.summary}
+            </div>
+            <a href="${post.link}" class="source-link" target="_blank">查看原帖讨论 →</a>
         </div>
     `).join('');
 
   return `
         <section class="section">
-            <h2 class="section-title">${icons[subreddit] || '📌'} r/${subreddit}</h2>
+            <h2 class="section-title">${icons[subreddit] || '📌'} r/${subreddit} <span style="font-size: 0.6em; color: var(--muted); font-weight: normal;">(${descriptions[subreddit]})</span></h2>
             ${postCards}
         </section>
     `;
@@ -308,6 +407,12 @@ async function main() {
     console.log('⚠️ 未获取到数据，可能Reddit RSS限制了访问');
     return;
   }
+  
+  // 生成摘要
+  console.log('🤖 正在生成内容摘要...');
+  allPosts.forEach(post => {
+    post.summary = generateSummary(post);
+  });
   
   // 保存JSON
   const jsonPath = join(process.cwd(), 'data', `posts-${date}.json`);
@@ -341,6 +446,7 @@ function updateIndex(topPosts, date) {
             --muted: #666;
             --border: #e0ddd5;
             --accent: #ff4500;
+            --link: #0066cc;
         }
         [data-theme="dark"] {
             --bg: #1a1a1a;
@@ -349,6 +455,7 @@ function updateIndex(topPosts, date) {
             --muted: #999;
             --border: #444;
             --accent: #ff6b6b;
+            --link: #4dabf7;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -392,8 +499,15 @@ function updateIndex(topPosts, date) {
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
+            font-size: 1.1em;
         }
         .post-link:hover { color: var(--accent); }
+        .post-summary {
+            font-size: 0.9em;
+            color: var(--muted);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
         .post-source {
             font-size: 0.85em;
             color: var(--muted);
@@ -456,6 +570,7 @@ function updateIndex(topPosts, date) {
             ${topPosts.map(p => `
             <div class="post-item">
                 <a href="${p.link}" class="post-link" target="_blank">${p.title}</a>
+                <div class="post-summary">${p.summary}</div>
                 <div class="post-source">r/${p.subreddit} · ⬆️ ${p.upvotes || 'N/A'}</div>
             </div>
             `).join('')}
@@ -467,7 +582,7 @@ function updateIndex(topPosts, date) {
             <ul class="archive-list">
                 <li class="archive-item">
                     <span class="archive-date">${date}</span>
-                    <a href="daily/${date}.html" class="archive-link">查看 →</a>
+                    <a href="daily/${date}.html" class="archive-link">查看完整报告 →</a>
                 </li>
             </ul>
         </div>
